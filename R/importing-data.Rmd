@@ -16,13 +16,13 @@ knitr::include_graphics(file.path(img_path,"csv-file.png"))
 filename <- "murders.csv"
 dir <- system.file("extdata", package = "dslabs") 
 fullpath <- file.path(dir, filename)
-file.copy(fullpath, "murders.csv")
+file.copy(fullpath, "murders-notes.csv")
 ```
 
 
 ```{r, eval=FALSE}
 library(tidyverse)
-dat <- read_csv(filename)
+dat <- read_csv("murders-notes.csv")
 ```
 
 ### The filesystem
@@ -44,6 +44,13 @@ list.files(path = dir)
 ```{r, eval=FALSE}
 wd <- getwd()
 ```
+if you want to set the working directory, can setwd("WHEREVER YOU ARE")
+
+if you don't set wd, can use the full file name: read_csv("full file path")
+
+get full path of current dataset/file: fullpath
+
+
 
 ### Generating path names
 
@@ -109,8 +116,10 @@ The following functions are available to read-in spreadsheets:
 
 
 ```{r}
-read_lines("murders.csv", n_max = 3)
+read_lines("murders-notes.csv", n_max = 3)
 ```
+we see that it's separated by commas, use CSV
+
 
 ```{r, message}
 dat <- read_csv(filename)
@@ -182,12 +191,12 @@ extdata/murders.csv"
 
 
 ```{r, message = FALSE}
-dat <- read_csv(url)
+dat <- read_csv(url) #can read by putting url and file name
 ```
 
 
 ```{r}
-download.file(url, "murders.csv")
+download.file(url, "murders-notes-2.csv") #doswnloads file and calls it this in the home directory
 ```
 
 ```{r, eval=FALSE}
@@ -215,6 +224,7 @@ x[1:10]
 ## Text versus binary files
 
 ## Unicode versus ASCII
+common problem - you think you have a text file (ASCII) but it's not, it's UNICODE (common when you have accents, etc.)
 
 ## Organizing data with spreadsheets
 

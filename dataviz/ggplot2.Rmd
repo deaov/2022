@@ -27,6 +27,8 @@ We also have:
 
 ```{r}
 library(dslabs)
+install.packages("ggplot2")
+library(ggplot2)
 data(murders)
 ```
 
@@ -34,6 +36,7 @@ data(murders)
 
 ```{r ggplot-example-1, eval=FALSE}
 ggplot(data = murders)
+
 ```
 
 
@@ -85,11 +88,12 @@ Cheat sheet: https://github.com/rstudio/cheatsheets
 
 ```{r, eval = FALSE}
 murders |> ggplot() + 
-  geom_point(aes(x = population/10^6, y = total))
+  geom_point(aes(x = population/10^6, y = total)) #anything mapped on plot from data needs 
+                                                  #to go inside aes()
 ```
  
 
-Using already defined `p`
+Using already defined `p`; p is already object associated with murders dataset, can add layers :)!
 
 ```{r ggplot-example-3}
 p + geom_point(aes(population/10^6, total))
@@ -119,16 +123,16 @@ p_test <- p + geom_text(aes(population/10^6, total), label = abb)
 
 ### Tinkering with arguments
  
-
+size=3 makes points bigger
 ```{r ggplot-example-5}
 p + geom_point(aes(population/10^6, total), size = 3) +
   geom_text(aes(population/10^6, total, label = abb))
 ```
 
-
+don't want abbreviation to be on top of the points:
 ```{r ggplot-example-6}
 p + geom_point(aes(population/10^6, total), size = 3) +
-  geom_text(aes(population/10^6, total, label = abb), nudge_x = 1.5)
+  geom_text(aes(population/10^6, total, label = abb), nudge_x = 1.5)#NOTE THIS IS OUTSIDE AES(); not getting it from the data, this is a decision you're making
 ```
 
 
@@ -141,7 +145,9 @@ args(ggplot)
 
 
 ```{r}
-p <- murders |> ggplot(aes(population/10^6, total, label = abb))
+p <- murders |> 
+  ggplot(aes(population/10^6, total, label = abb)) #add mapping right at the beginning
+p
 ```
 
 
@@ -194,7 +200,8 @@ p + geom_point(size = 3) +
 
 
 ```{r}
-p <-  murders |> ggplot(aes(population/10^6, total, label = abb)) +   
+p <-  murders |> 
+  ggplot(aes(population/10^6, total, label = abb)) +   
   geom_text(nudge_x = 0.05) + 
   scale_x_log10() +
   scale_y_log10() +
@@ -203,6 +210,7 @@ p <-  murders |> ggplot(aes(population/10^6, total, label = abb)) +
   ggtitle("US Gun Murders in 2010")
 ```
 
+COLOR IS A MAPPING BECAUSE IT'S COMING FROM THE REGION
 
 ```{r ggplot-example-11}
 p + geom_point(size = 3, color ="blue")
