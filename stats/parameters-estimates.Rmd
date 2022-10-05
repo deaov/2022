@@ -3,13 +3,13 @@ title: "Random Variables"
 author: "Rafael A. Irizarry"
 date: "`r lubridate::today()`"
 output:
+  slidy_presentation: default
+  beamer_presentation: default
   ioslides_presentation:
     fig_caption: no
     fig_height: 5
     fig_width: 7
     out_width: "70%"
-  beamer_presentation: default
-  slidy_presentation: default
 ---
 
 ```{r setup, include=FALSE}
